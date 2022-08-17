@@ -3,12 +3,14 @@ on:
   push:
     branches:
       - master
-
+env:
+ DOCKER_USERNAME: ghaith98
+ DOCKER_PASSWORD: GMEEE@2021
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker login -u ${{ process.env.DOCKER_USERNAME }} -p ${{ process.env.DOCKER_PASSWORD }}
+      - run: docker login -u ${{env.DOCKER_USERNAME}} -p ${{env.DOCKER_PASSWORD}}
       - run: docker build -t cygnetops/react-test -f Dockerfile.dev .
       - run: docker run -e CI=true cygnetops/react-test npm test
